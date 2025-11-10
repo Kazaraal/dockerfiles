@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git brach: 'master',
+                git branch: 'master',
                     credentialsId: 'github-credentials',
                     url: 'https://github.com/Kazaraal/dockerfiles.git'
             }
