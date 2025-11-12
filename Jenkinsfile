@@ -45,14 +45,14 @@ pipeline {
                 }
             }
         }
-    }
 
         post {
             always {
-                echo 'Cleaning up Docker images'
                 script {
                     sh 'docker system prune -f'
+                }
             }
         }
     }
+        
 }
