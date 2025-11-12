@@ -37,30 +37,29 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 script {
-                    docker.withRegistry('https://registry.hub.docker.com', 'dockerhub-credentials') 
-                        {
+                    docker.withRegistry('https://registry.hub.docker.com', 'dockerhub-credentials') {
                         dockerImage.push()
                         dockerImage.push('latest')
-                        }
+                    }
                 }
             }
         }
 
     }
 
-    post {
-        always {
-            script {
-                echo 'Cleaning up workspace'
-                cleanWs()
-            }
-        }
-        success {
-            echo 'Docker image built and pushed successfully!'
-        }
-        failure {
-            echo 'Pipeline failed! Check the logs above for errors.'
-        }
-    }
+    // post {
+    //     always {
+    //         script {
+    //             echo 'Cleaning up workspace'
+    //             cleanWs()
+    //         }
+    //     }
+    //     success {
+    //         echo 'Docker image built and pushed successfully!'
+    //     }
+    //     failure {
+    //         echo 'Pipeline failed! Check the logs above for errors.'
+    //     }
+    // }
         
 }
