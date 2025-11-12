@@ -46,8 +46,13 @@ pipeline {
             }
         }
 
-        post {
-            always {
+        stage('Cleanup') {
+            when {
+                always {
+                    // Run regardless of the build result.
+                }
+            }
+            steps {
                 script {
                     sh 'docker system prune -f'
                 }
