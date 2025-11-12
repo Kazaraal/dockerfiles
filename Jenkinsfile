@@ -46,17 +46,20 @@ pipeline {
             }
         }
 
-        stage('Cleanup') {
-            when {
-                always {
-                    // Run regardless of the build result.
-                }
+    }
+
+    post {
+        always {
+            script {
+                echo 'Cleaning up workspace'
+                cleanWs()
             }
-            steps {
-                script {
-                    sh 'docker system prune -f'
-                }
-            }
+        }
+        success {
+            echo 'Docker image built and pushed successfully!'
+        }
+        failure {
+            echo 'Pipeline failed! Check the logs above for errors.'
         }
     }
         
