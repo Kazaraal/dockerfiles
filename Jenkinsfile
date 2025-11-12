@@ -46,21 +46,21 @@ pipeline {
             }
         }
 
-    }
-
-    post {
-        always {
-            script {
-                echo 'Cleaning up workspace'
-                cleanWs()
+        post {
+            always {
+                script {
+                    echo 'Cleaning up workspace'
+                    cleanWs()
+                }
+            }
+            success {
+                echo 'Docker image built and pushed successfully!'
+            }
+            failure {
+                echo 'Pipeline failed! Check the logs above for errors.'
             }
         }
-        success {
-            echo 'Docker image built and pushed successfully!'
-        }
-        failure {
-            echo 'Pipeline failed! Check the logs above for errors.'
-        }
+
     }
         
 }
