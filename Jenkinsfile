@@ -38,16 +38,16 @@ pipeline {
             }
         }
 
-        stage('Push Docker Image') {
-            steps {
-                script {
-                    docker.withRegistry('https://registry.hub.docker.com', '${DOCKERHUB_CREDENTIALS}') {
-                        dockerImage.push()
-                        dockerImage.push('latest')
-                    }
-                }
-            }
-        }
+        // stage('Push Docker Image') {
+        //     steps {
+        //         script {
+        //             docker.withRegistry('https://registry.hub.docker.com', '${DOCKERHUB_CREDENTIALS}') {
+        //                 dockerImage.push()
+        //                 dockerImage.push('latest')
+        //             }
+        //         }
+        //     }
+        // }
 
     }
 
