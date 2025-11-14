@@ -3,7 +3,11 @@ pipeline {
 
     environment {
         DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials')
-        IMAGE_NAME = 'your-dockerhub-username/your-image-name'
+        IMAGE_NAME = 'araalkaz/jenkins'
+    }
+
+    triggers {
+        pollSCM 'H/5 * * * *'
     }
 
     stages {
@@ -37,7 +41,7 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 script {
-                    docker.withRegistry('https://registry.hub.docker.com', 'dockerhub-credentials') {
+                    docker.withRegistry('https://registry.hub.docker.com', '${DOCKERHUB_CREDENTIALS}') {
                         dockerImage.push()
                         dockerImage.push('latest')
                     }
@@ -47,19 +51,4 @@ pipeline {
 
     }
 
-    // post {
-    //     always {
-    //         script {
-    //             echo 'Cleaning up workspace'
-    //             cleanWs()
-    //         }
-    //     }
-    //     success {
-    //         echo 'Docker image built and pushed successfully!'
-    //     }
-    //     failure {
-    //         echo 'Pipeline failed! Check the logs above for errors.'
-    //     }
-    // }
-        
 }
