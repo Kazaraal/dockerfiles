@@ -2,6 +2,7 @@ pipeline {
     agent any
 
     environment {
+        GITHUB_CREDENTIALS = credentials('github-credentials')
         DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials')
         IMAGE_NAME = 'araalkaz/jenkins'
     }
@@ -14,7 +15,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 git branch: 'master',
-                    credentialsId: 'github-credentials',
+                    credentialsId: '${GITHUB_CREDENTIALS}',
                     url: 'https://github.com/Kazaraal/dockerfiles.git'
             }
         }
